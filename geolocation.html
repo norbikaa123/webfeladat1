@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation API</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const geolocationExample = document.getElementById('geolocationExample');
+            if (location.protocol !== 'https:') {
+                geolocationExample.innerHTML = 'A Geolocation API használatához biztonságos eredet (HTTPS) szükséges.';
+            } else if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    geolocationExample.innerHTML = `Szélesség: ${position.coords.latitude}, Hosszúság: ${position.coords.longitude}`;
+                });
+            } else {
+                geolocationExample.innerHTML = 'A böngésző nem támogatja a Geolocation API-t.';
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Geolocation API Példa</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="table.html">Táblázat</a></li>
+            <li><a href="html5.html">HTML5</a></li>
+            <li><a href="chartjs.html">ChartJS</a></li>
+            <li><a href="ajax.html">AJAX</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
+        </ul>
+    </nav>
+    <aside>
+        <!-- Oldalsáv tartalom -->
+    </aside>
+    <div class="content">
+        <h2>Geolocation API Példa</h2>
+        <div id="geolocationExample"></div>
+    </div>
+    <footer>
+        <p>Elkészítő: Sallai Norbert Neptun kód: CJDYAF</p>
+    </footer>
+</body>
+</html>

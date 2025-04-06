@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Táblázat</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { cursor: pointer; }
+        input, button { margin: 5px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Web-programozás-1 Előadás Házi feladat</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="table.html" class="active">Táblázat</a></li>
+            <li><a href="html5.html">HTML5</a></li>
+            <li><a href="chartjs.html">ChartJS</a></li>
+            <li><a href="ajax.html">AJAX</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
+        </ul>
+    </nav>
+    <aside>
+        <!-- Oldalsáv tartalom -->
+    </aside>
+    <div class="content">
+        <h2>CRUD Táblázat</h2>
+        <input type="text" id="search" placeholder="Keresés..." onkeyup="searchTable()">
+        <br>
+        <input type="text" id="name" placeholder="Név" required>
+        <input type="number" id="age" placeholder="Kor" min="1" max="120" required>
+        <input type="text" id="city" placeholder="Város" required>
+        <input type="text" id="job" placeholder="Munka" required>
+        <button onclick="addRow()">Hozzáadás</button>
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Név</th>
+                    <th onclick="sortTable(1)">Kor</th>
+                    <th onclick="sortTable(2)">Város</th>
+                    <th onclick="sortTable(3)">Munka</th>
+                    <th>Műveletek</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <footer>
+        <p>Elkészítő: Sallai Norbert Neptun kód: CJDYAF</p>
+    </footer>
+    <script>
+        function addRow() {
+            let name = document.getElementById("name").value.trim();
+            let age = document.getElementById("age").value.trim();
+            let city = document.getElementById("city").value.trim();
+            let job = document.getElementById("job").value.trim();
+            
+            if (!name || !age || !city || !job) {
+                alert("Minden mező kitöltése kötelező!");
+                return;
+            }
+            
+            let table = document.getElementById("dataTable").getElementsByTagName('tbody')[0];
+            let row = table.insertRow();
+            row.insertCell(0).textContent = name;
+            row.insertCell(1).textContent = age;
+            row.insertCell(2).textContent = city;
+            row.insertCell(3).textContent = job;
+            let actions = row.insertCell(4);
+            actions.innerHTML = `<button onclick="editRow(this)">Szerkesztés</button> 
+                                 <button onclick="deleteRow(this)">Törlés</button>`;
+            document.getElementById("name").value = "";
+            document.getElementById("age").value = "";
+            document.getElementById("city").value = "";
+            document.getElementById("job").value = "";
+        }
+
+        function deleteRow(btn) {
+            let row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        function editRow(btn) {
+            let row = btn.parentNode.parentNode;
+            let cells = row.getElementsByTagName("td");
+            let name = prompt("Név:", cells[0].textContent);
+            let age = prompt("Kor:", cells[1].textContent);
+            let city = prompt("Város:", cells[2].textContent);
+            let job = prompt("Munka:", cells[3].textContent);
+            
+            if (name && age && city && job) {
+                cells[0].textContent = name;
+                cells[1].textContent = age;
+                cells[2].textContent = city;
+                cells[3].textContent = job;
+            }
+        }
+
+        function sortTable(n) {
+            let table = document.getElementById("dataTable");
+            let rows = Array.from(table.rows).slice(1);
+            let sortedRows = rows.sort((a, b) => a.cells[n].textContent.localeCompare(b.cells[n].textContent, 'hu', {numeric: true}));
+            sortedRows.forEach(row => table.appendChild(row));
+        }
+
+        function searchTable() {
+            let input = document.getElementById("search").value.toLowerCase();
+            let rows = document.getElementById("dataTable").getElementsByTagName("tbody")[0].rows;
+            for (let row of rows) {
+                let text = row.textContent.toLowerCase();
+                row.style.display = text.includes(input) ? "" : "none";
+            }
+        }
+    </script>
+</body>
+</html>

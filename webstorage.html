@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Storage</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            localStorage.setItem('example', 'Hello, Web Storage!');
+            document.getElementById('webStorageExample').innerHTML = `Tárolt érték: ${localStorage.getItem('example')}`;
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Web-programozás-1 Előadás Házi feladat</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="table.html">Táblázat</a></li>
+            <li><a href="html5.html">HTML5</a></li>
+            <li><a href="chartjs.html">ChartJS</a></li>
+            <li><a href="ajax.html">AJAX</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
+        </ul>
+    </nav>
+    <aside>
+        <!-- Oldalsáv tartalom -->
+    </aside>
+    <div class="content">
+        <!-- Egyedi tartalom minden oldalhoz -->
+        <h2>Web Storage Példa</h2>
+        <div id="webStorageExample">
+            <!-- Példa tartalom -->
+        </div>
+    </div>
+    <footer>
+        <p>Elkészítő: Sallai Norbert Neptun kód: CJDYAF</p>
+    </footer>
+</body>
+</html>

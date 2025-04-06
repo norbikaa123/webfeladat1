@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX CRUD</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="ajax.js" defer></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        input, button { margin: 5px; }
+        .result { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Web-programozás-1 Előadás Házi feladat</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="table.html">Táblázat</a></li>
+            <li><a href="html5.html">HTML5</a></li>
+            <li><a href="chartjs.html">ChartJS</a></li>
+            <li><a href="ajax.html" class="active">AJAX</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
+        </ul>
+    </nav>
+    <aside>
+        <!-- Oldalsáv tartalom -->
+    </aside>
+    <div class="content">
+        <h2>AJAX CRUD Alkalmazás</h2>
+        
+        <h3>Adatok lekérése</h3>
+        <input type="number" id="readId" placeholder="ID">
+        <button onclick="readData()">Adat lekérése</button>
+        <div id="readResult" class="result"></div>
+        
+        <h3>Új adat létrehozása</h3>
+        <input type="text" id="createName" placeholder="Név">
+        <input type="number" id="createHeight" placeholder="Magasság">
+        <input type="number" id="createWeight" placeholder="Súly">
+        <button onclick="createData()">Létrehozás</button>
+        <div id="createResult" class="result"></div>
+        
+        <h3>Adat frissítése</h3>
+        <input type="number" id="updateId" placeholder="ID">
+        <button onclick="getDataForId()">Adatok betöltése</button>
+        <br>
+        <input type="text" id="updateName" placeholder="Új név">
+        <input type="number" id="updateHeight" placeholder="Új magasság">
+        <button onclick="updateData()">Frissítés</button>
+        <div id="updateResult" class="result"></div>
+        
+        <h3>Adat törlése</h3>
+        <input type="number" id="deleteId" placeholder="ID">
+        <button onclick="deleteData()">Törlés</button>
+        <div id="deleteResult" class="result"></div>
+        
+        <div id="ajaxOutput"></div>
+    </div>
+    <footer>
+        <p>Elkészítő: Sallai Norbert Neptun kód: CJDYAF</p>
+    </footer>
+</body>
+</html>

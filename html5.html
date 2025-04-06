@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        nav { margin-bottom: 20px; }
+        button { margin: 5px; }
+        #content { border: 1px solid #ccc; padding: 10px; min-height: 200px; }
+        canvas { border: 1px solid black; }
+        svg { width: 100px; height: 100px; }
+        .draggable { width: 100px; height: 100px; background: lightblue; padding: 10px; cursor: grab; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Web-programozás-1 Előadás Házi feladat</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="table.html">Táblázat</a></li>
+            <li><a href="html5.html" class="active">HTML5</a></li>
+            <li><a href="chartjs.html">ChartJS</a></li>
+            <li><a href="ajax.html">AJAX</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
+        </ul>
+    </nav>
+    <aside>
+        <!-- Oldalsáv tartalom -->
+    </aside>
+    <div class="content">
+        <h2>HTML5 Példák</h2>
+        <nav>
+            <button onclick="showExample('storage')">Web Storage</button>
+            <button onclick="showExample('worker')">Web Workers</button>
+            <button onclick="showExample('sse')">Server-Sent Events</button>
+            <button onclick="showExample('geo')">Geolocation API</button>
+            <button onclick="showExample('dragdrop')">Drag and Drop</button>
+            <button onclick="showExample('canvas')">Canvas</button>
+            <button onclick="showExample('svg')">SVG</button>
+        </nav>
+        <div id="content">Válassz egy példát!</div>
+    </div>
+    <footer>
+        <p>Elkészítő: Sallai Norbert Neptun kód: CJDYAF</p>
+    </footer>
+    <script>
+        function showExample(type) {
+            let content = document.getElementById("content");
+            if (type === 'storage') {
+                content.innerHTML = `<input type='text' id='name' placeholder='Írd be a neved'>
+                    <button onclick='saveName()'>Mentés</button>
+                    <button onclick='loadName()'>Betöltés</button>
+                    <p id='output'></p>`;
+            } else if (type === 'worker') {
+                let worker = new Worker(URL.createObjectURL(new Blob([`onmessage = function(e) { postMessage('Hello ' + e.data); }`], { type: 'application/javascript' })));
+                worker.onmessage = function(e) { alert(e.data); };
+                worker.postMessage('Felhasználó');
+            } else if (type === 'sse') {
+                content.innerHTML = `<p>Server-Sent Events nem támogatott teljesen itt.</p>`;
+            } else if (type === 'geo') {
+                navigator.geolocation.getCurrentPosition(position => {
+                    content.innerHTML = `Szélesség: ${position.coords.latitude}, Hosszúság: ${position.coords.longitude}`;
+                });
+            } else if (type === 'dragdrop') {
+                content.innerHTML = `<div class='draggable' draggable='true' ondragstart='drag(event)' id='drag1'>Húzz engem!</div>
+                    <div ondrop='drop(event)' ondragover='allowDrop(event)' style='width:200px; height:200px; border:1px solid black; margin-top:20px;'>Dobd ide</div>`;
+            } else if (type === 'canvas') {
+                content.innerHTML = `<canvas id='canvas' width='400' height='300'></canvas>`;
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = 'green';
+                ctx.fillRect(10, 10, 100, 100);
+
+                ctx.beginPath();
+                ctx.arc(150, 75, 50, 0, Math.PI * 2, true);
+                ctx.fillStyle = 'blue';
+                ctx.fill();
+
+                ctx.font = '20px Arial';
+                ctx.fillStyle = 'black';
+                ctx.fillText('Canvas példa', 10, 150);
+
+                canvas.addEventListener('click', (e) => {
+                    const rect = canvas.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    ctx.fillStyle = 'red';
+                    ctx.fillRect(x - 5, y - 5, 10, 10);
+                });
+            } else if (type === 'svg') {
+                content.innerHTML = `
+                    <svg width="200" height="200">
+                        <circle cx="100" cy="100" r="50" fill="blue" />
+                        <rect x="50" y="50" width="100" height="100" fill="green" />
+                        <text x="100" y="180" font-size="20" text-anchor="middle" fill="black">SVG példa</text>
+                    </svg>
+                `;
+                const svg = content.querySelector('svg');
+                svg.addEventListener('click', (e) => {
+                    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    const svgRect = svg.getBoundingClientRect();
+                    rect.setAttribute('x', e.clientX - svgRect.left - 10);
+                    rect.setAttribute('y', e.clientY - svgRect.top - 10);
+                    rect.setAttribute('width', 20);
+                    rect.setAttribute('height', 20);
+                    rect.setAttribute('fill', 'red');
+                    svg.appendChild(rect);
+                });
+            }
+        }
+
+        function saveName() {
+            localStorage.setItem('storedName', document.getElementById('name').value);
+            alert('Név mentve!');
+        }
+        function loadName() {
+            document.getElementById('output').innerText = localStorage.getItem('storedName') || 'Nincs mentett név!';
+        }
+
+        function allowDrop(ev) { ev.preventDefault(); }
+        function drag(ev) { ev.dataTransfer.setData('text', ev.target.id); }
+        function drop(ev) { ev.preventDefault(); ev.target.appendChild(document.getElementById(ev.dataTransfer.getData('text'))); }
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop API</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dragAndDropExample = document.getElementById('dragAndDropExample');
+            dragAndDropExample.innerHTML = '<div draggable="true" style="width: 100px; height: 100px; background-color: red;">Húzz ide</div>';
+            dragAndDropExample.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', 'Ez egy húzható elem.');
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Drag and Drop API Példa</h1>
+    </header>
+    <nav>
+        <ul>
+            <!-- ...existing code... -->
+        </ul>
+    </nav>
+    <aside>
+        <!-- Oldalsáv tartalom -->
+    </aside>
+    <div class="content">
+        <h2>Drag and Drop API Példa</h2>
+        <div id="dragAndDropExample"></div>
+    </div>
+    <footer>
+        <p>Elkészítő: Sallai Norbert Neptun kód: CJDYAF</p>
+    </footer>
+</body>
+</html>
