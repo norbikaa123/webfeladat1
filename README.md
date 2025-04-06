@@ -1,2 +1,2 @@
 # webfeladat1
-webprogramozas1 hf
+webprogramozas1 hazifeladat fájlai
