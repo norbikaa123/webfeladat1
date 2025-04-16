@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const table = document.getElementById('dataTable');
     const ctx = document.getElementById('chartCanvas').getContext('2d');
 
-    // Example data
+   
     const exampleData = [
         [5, 20, 32, 14, 75],
         [6, 2, 1, 18, 10],
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         [33, 22, 48, 28, 25]
     ];
 
-    // Populate table with example data
+    
     exampleData.forEach((row, rowIndex) => {
         const tr = table.insertRow();
         row.forEach(cellData => {
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Initialize chart
+   
     const chart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Update chart with selected row data
+   
     function updateChart(data) {
         chart.data.datasets[0].data = data;
         chart.update();
